@@ -2,13 +2,8 @@ $(document).ready(function () {
   const searchInput = $("#searchInput");
   const dropdownList = $("#dropdownList");
 
-  // Fetch Hodted JSON file from GitHub
-  // $.getJSON('https://raw.githubusercontent.com/MarcelBrown17/DropDown_JSON/main/list.json', function(data) {
-  //     populateDropdown(data);
-  // });
-
-  // Fetches the json file locally
-  $.getJSON("./list.json", function (data) {
+  // Fetches the json file
+  $.getJSON("https://raw.githubusercontent.com/MarcelBrown17/DropDown_JSON/main/list.json", function (data) {
     data.sort((a, b) => a.name.localeCompare(b.name));
     populateDropdown(data);
   });
