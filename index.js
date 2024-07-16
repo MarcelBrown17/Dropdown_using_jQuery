@@ -2,12 +2,6 @@ $(document).ready(function () {
   const searchInput = $("#searchInput");
   const dropdownList = $("#dropdownList");
 
-  // Fetch Hosted JSON file from GitHub
-  // $.getJSON('https://raw.githubusercontent.com/MarcelBrown17/DropDown_JSON/main/list.json', function(data) {
-  //     populateDropdown(data);
-  // });
-
-  // Fetches the json file locally
   $.getJSON("./list.json", function (data) {
     data.sort((a, b) => a.name.localeCompare(b.name));
     populateDropdown(data);
@@ -17,6 +11,7 @@ $(document).ready(function () {
     items.forEach((item) => {
       dropdownList.append(`<a href="#">${item.name}</a>`);
     });
+
     searchInput.on("keyup", function () {
       filterDropdown($(this).val());
     });
@@ -50,7 +45,7 @@ $(document).ready(function () {
   dropdownList.on("click", "a", function () {
     searchInput.val($(this).text());
     dropdownList.removeClass("show");
-    highlightActiveItem($(this)); // Highlight the active item when clicked
+    highlightActiveItem($(this)); 
   });
 
   searchInput.on("keydown", function (e) {
@@ -60,30 +55,23 @@ $(document).ready(function () {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       const nextIndex = (currentIndex + 1) % visibleItems.length;
-      visibleItems
-        .removeClass("highlighted")
-        .eq(nextIndex)
-        .addClass("highlighted active");
+      visibleItems.removeClass("highlighted active").eq(nextIndex).addClass("highlighted active");
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       const prevIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
-      visibleItems
-        .removeClass("highlighted")
-        .eq(prevIndex)
-        .addClass("highlighted active");
+      visibleItems.removeClass("highlighted active").eq(prevIndex).addClass("highlighted active");
     } else if (e.key === "Enter") {
       e.preventDefault();
       if (currentIndex >= 0) {
         const selectedItem = visibleItems.eq(currentIndex);
         selectedItem.click();
-        highlightActiveItem(selectedItem); // Highlight the active item when selected with Enter
+        highlightActiveItem(selectedItem); 
       }
     }
   });
 
-  // Function to highlight the active item
   function highlightActiveItem(item) {
-    dropdownList.find("a").removeClass("active"); // Remove active class from all items
-    item.addClass("active"); // Add active class to the selected item
+    dropdownList.find("a").removeClass("active"); 
+    item.addClass("active"); 
   }
 });
