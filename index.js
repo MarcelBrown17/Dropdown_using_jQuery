@@ -2,7 +2,7 @@ $(document).ready(function () {
   const searchInput = $("#searchInput");
   const dropdownList = $("#dropdownList");
 
-  $.getJSON("./list.json", function (data) {
+  $.getJSON("https://raw.githubusercontent.com/MarcelBrown17/DropDown_JSON/main/list.json", function (data) {
     data.sort((a, b) => a.name.localeCompare(b.name));
     populateDropdown(data);
   });
